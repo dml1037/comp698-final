@@ -56,6 +56,6 @@ resource "google_compute_instance_group_manager" "default2-staging" {
 
 resource "google_storage_bucket" "image-store" {
   project  = "comp698-dml1037"
-  name     = "comp698-final"
+  name     = "comp698-final-danielle815"
   location = "us-central1"
 }
