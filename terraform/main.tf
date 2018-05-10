@@ -34,7 +34,7 @@ resource "google_compute_instance_template" "tf-server-staging" {
       gce-container-declaration = <<EOF
   spec:
     containers:
-    - image: 'gcr.io/comp698-dml1037/github-dml1037-comp698-final:f5cee58acb57df2d2d55cda01a929331ac83803e17a777c3a4c7e21fcea681fe'
+    - image: 'gcr.io/comp698-dml1037/github-dml1037-comp698-final:3feafd5e04d677847f2aa467a166e71046b90de1'
       name: service-container
       stdin: false
       tty: false
@@ -56,6 +56,6 @@ resource "google_compute_instance_group_manager" "default2-staging" {
 
 resource "google_storage_bucket" "image-store" {
   project  = "comp698-dml1037"
-  name     = "comp698-final"
+  name     = "comp698-final-danielle815"
   location = "us-central1"
 }
