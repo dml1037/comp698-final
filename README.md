@@ -19,7 +19,7 @@ Reference: https://www.terraform.io/intro/index.html
 Virtualization lets companies reduce their IT costs by requiring fewer hardware servers and related resources to achieve the same level of computing performance, availability and scalability. IT can greatly reduce the ongoing administration and management of manual, time-consuming processes by automating operations, thus resulting in lower operational expenses. As companies reduce the size of their hardware and server footprint, they lower their energy consumption, cooling power and data center square footage, thus resulting in lower costs.
 
 6) Diagram of the architecture from laptop to GCP
-comp698-final/static/image.png
+![Architecture image](/static/image.png)
  
 7) Why use bash commands vs clicking through UI?
 There are many reasons why you should use bash commands over UI. First, you can gain greater control over system functions. You can use Node Package Manager for package installs. You can utilize Git version control. You need it to use preprocessors and task runners. It is used in local backend development. And finally, anyone who wants to work in the software industry, it is imperative that you know command line. Why did you think you could be a programmer and not use it?!
