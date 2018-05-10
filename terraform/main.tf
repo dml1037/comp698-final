@@ -43,6 +43,40 @@ EOF
   }
 }
 
+resource "google_compute_instance_template" "tf-server-prod" {
+  name = "tf-server-prod"
+  project = "comp698-dml1037"
+  disk {
+    source_image = "cos-cloud/cos-stable"
+  }
+  machine_type = "n1-standard-1"
+  network_interface {
+    network = "default"
+    access_config {}
+  }
+
+  tags = ["http-server"] 
+
+  service_account {
+    scopes = [
+      "https://www.googleapis.com/auth/compute",
+      "https://www.googleapis.com/auth/cloud-platform",
+      "https://www.googleapis.com/auth/devstorage.read_write",
+    ]
+  }
+  metadata {
+      gce-container-declaration = <<EOF
+  spec:
+    containers:
+    - image: 'gcr.io/comp698-dml1037/github-dml1037-comp698-final:1dfa93f1b9963c6ad01286aa0fc3cb58dfca6522'
+      name: service-container
+      stdin: false
+      tty: false
+    restartPolicy: Always
+EOF
+  }
+}
+
 
 resource "google_compute_instance_group_manager" "default2-staging" {
   name = "tf-manager-staging"
@@ -53,6 +87,14 @@ resource "google_compute_instance_group_manager" "default2-staging" {
   target_size = 1
 }
 
+resource "google_compute_instance_group_manager" "default2-prod" {
+  name = "tf-manager-prod"
+  project = "comp698-dml1037"
+  zone = "us-central1-f"
+  base_instance_name = "prod"
+  instance_template  = "${google_compute_instance_template.tf-server-prod.self_link}"
+  target_size = 1
+}
 
 resource "google_storage_bucket" "image-store" {
   project  = "comp698-dml1037"
