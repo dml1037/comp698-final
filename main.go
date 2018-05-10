@@ -1,28 +1,23 @@
 package main
- 
- import (
-	"io"
+
+import (
 	"bytes"
 	"fmt"
 	"io/ioutil"
- 	"log"
- 	"net/http"
+	"log"
+	"net/http"
 	"time"
- )
- 
-func hello(w http.ResponseWriter, r *http.Request) {
-	io.WriteString(w, "Hello, World!")
+)
+
 func IndexHandler(w http.ResponseWriter, r *http.Request) {
 	data, err := ioutil.ReadFile("./static/html/index.html")
 	if err != nil {
 		fmt.Fprint(w, err)
 	}
 	http.ServeContent(w, r, "index.html", time.Now(), bytes.NewReader(data))
- }
- 
- func main() {
-	http.HandleFunc("/", hello)
-	log.Fatal(http.ListenAndServe(":80", nil))
+}
+
+func main() {
 
 	s := &http.Server{
 		Addr:    ":80",
@@ -34,4 +29,4 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 	http.HandleFunc("/home", IndexHandler)
 	log.Fatal(s.ListenAndServe())
 
- }
+}
