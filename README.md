@@ -28,9 +28,9 @@ With installing application directly, you are more likely to run into configurat
 Reference: http://alexander.holbreich.org/package-manager-vs-docker/
 
 9) What protections are there against accidentally introducing bad code into production?
-*Work on bugs and features on separate branches
-*Do not use deployments for rapidly changing environments; run software locally
-*Test, test, test!
-*Do not test on master
+* Work on bugs and features on separate branches
+* Do not use deployments for rapidly changing environments; run software locally
+* Test, test, test!
+* Do not test on master
 
 
