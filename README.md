@@ -34,4 +34,66 @@ Reference: http://alexander.holbreich.org/package-manager-vs-docker/
 * Test, test, test!
 * Do not test on master
 
+DOCUMENTATED STEPS TAKEN FOR THIS PROJECT
+Documentation for Comp 698 Final
+1) Create a new GitHub repo
+* Created a new folder on my local desktop under UNH/comp698/comp698-final
+* Created a GitHub repository online
+* Initialized it with a Readme file
+* Chose MIT license 
+* Copied clipboard link, cloned it to my laptop “git clone https://github.com/dml1037/comp698-final.git” in my comp698 folder.
+* Went to settings, branches, then branch protection rules. Chose Master, protect this branch, checked require status checks to pass before merging, select include administrators, initialized Travis-ci.
+
+2) Initial hello world application
+* Created two code files in sublime on my local; main.go and main_test.go.
+* Performed git add main.go and git add main_test.go, git commit –m “adding main.go and main_test.go” to master, git push origin master to add both files to GitHub repo. Got a pull request, waited for approval, merged. The code for those files was found at https://github.com/mathyourlife/comp698-final/tree/helloworld-source
+
+3) Add Dockerfile
+* Created a local branch called addDock (git branch addDock)
+* Created a new code file on sublime called dockerfile with the contents from   https://github.com/mathyourlife/comp698final/blob/helloworld-dockerfile/Dockerfile
+* added to branch/committed/pushed (git add dockerfile, git commit –m “adding dockerfile for hello world application”, git push origin addDock)
+* Got pull request on GitHub, merged successful.
+* Everything was working, except I noticed when I copied and pasted the code, there were “ + ”’s at the beginning of each line. So, I locally fixed the file. I did the same process as above. (git add dockerfile, git commit –m “adding dockerfile for hello world application”, git push origin addDock). However, I got a newline error. Travis failed it as well because it was not set up yet. I fixed it locally, then did the same process and it worked.
+
+4) Add Travis ci PR validation
+5) Update Travis ci for PR validation and functional testing
+* Created a .travis.yml and functional-test.sh file locally using sublime. The contents were from https://github.com/mathyourlife/comp698-final/tree/helloworld-travisci
+* git add .travis.yml, git add functional-test.sh, git commit –m “adding travis ci for pull request validation”, git push origin addDock).
+* When trying to merge the .travis.yml pull request, it failed multiple times because I had not yet added the functional-test.sh file. Once I merged that file, both were merged and added to GitHub successfully.
+
+6) Add GCP build trigger
+* Went to GCP then Build Trigger
+* Created trigger with settings the module on Canvas (GitHub, comp698 final, branch master, image name gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA)
+* Ran trigger, waited for successful message
+
+7) Create terrform to deploy hello world version to 1 staging server
+* Created a subfolder in my local comp698 folder called “terraform”. Created main.tf file based on “my-web-server” project.
+* git branch terraformFile, add main.tf, git commit –m “adding main.tf to terraform”, git push origin terraformFile).
+* Got pull request, validated Travis Ci, merged successful
+* sshed into terraform-configuration server (gcloud compute ssh terraform-configuration) 
+* git clone comp698-final 
+* cd into UNH/comp698/comp698-final/terraform
+* ran “terraform apply”
+* got an error with the bucket name
+* updated my sublime code to change it to a more unique name
+* added/commited/pushed/pull request/merge
+* git pull on ssh window to make sure new file was up to date
+* ran terraform apply, it threw an error, ran terraform destroy, then terraform apply again. Ran successful. Deployed “hello world”.
+
+8) Update application code to full
+* Updated every single file found here: https://github.com/mathyourlife/comp698-final/tree/bootstrap-source and here: https://github.com/mathyourlife/comp698-final/tree/bootstrap-source
+* added/committed/push/merge
+* I did get some errors in this process. The reason being because some needed others to run successful. I basically did them out of order. Once everything was in there it was successful.
+* added final touches to main.tf. Added updated image name (path to GCP)
+* Did the same terraform steps as in step 7. Sshed, updated main.tf, ran terraform apply, image build successful.
+
+9) Update terraform to deploy full app to 1 staging server and hello world to 1 prod server
+* Updated my main.tf file one last time to input the image names (long paths to GCP)
+* When testing both external IP’s, I noticed that they were displaying backwards.
+* Went in to my local files, switched the paths, added/committed/pushed/pull request/merged
+* updated terraform using terraform apply in ssh window
+* problem solved, when you click each external IP they both go to the correct windows.
+* deleted branches “addDock” and “terraformFile” locally and remotely
+
+
 
